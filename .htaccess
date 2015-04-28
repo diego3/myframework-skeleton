@@ -1,0 +1,50 @@
+Options -Indexes
+
+DirectoryIndex index.php
+php_value date.timezone "America/Sao_Paulo"
+
+SetEnv LC_ALL  nl_NL.UTF-8
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .php
+
+php_value default_charset "UTF-8"
+
+php_value iconv.input_encoding "UTF-8"
+php_value iconv.internal_encoding "UTF-8"
+php_value iconv.output_encoding "UTF-8"
+
+php_value mbstring.internal_encoding UTF-8
+php_value mbstring.http_output UTF-8
+php_value mbstring.encoding_translation On
+php_value mbstring.func_overload 6
+
+<Files ~ "^\.(htaccess|htpasswd|ini)$">
+    order deny,allow
+    deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    RewriteBase /
+
+    #Static Files
+    RewriteRule ^static/(.*)$ static.php?_item=$1 [QSA,L]
+    RewriteRule ^(.*/)?(css|image|js|fonts)/(.*)$ static/$2/$3 [QSA,L]
+
+    RewriteRule ^([a-z,A-Z,-]*)\/?$ index.php?_page=$1 [QSA,L]
+    RewriteRule ^([a-z,A-Z,-]*)\/([0-9]*)\/?$ index.php?_page=$1&_id=$2 [QSA,L]
+    RewriteRule ^([a-z,A-Z,-]*)\/([a-z,A-Z,-]*)\/?$ index.php?_page=$1&_action=$2 [QSA,L]
+    RewriteRule ^([a-z,A-Z,-]*)\/([a-z,0-9,A-Z,-,_]*)\/([a-z,A-Z,-]*)\/?$ index.php?_page=$1&_id=$2&_action=$3 [QSA,L]
+    RewriteRule ^([a-z,A-Z,-]*)\/([a-z,0-9,A-Z,-,_]*)\/([a-z,A-Z,-]*)\/([A-Z]*)\/?$ index.php?_page=$1&_id=$2&_action=$3&responseType=$4 [QSA,L]
+    RewriteRule ^sitemap.xml$ index.php?_page=main&_action=sitemap
+    RewriteRule ^robots.txt$ index.php?_page=main&_action=robots
+    RewriteRule ^index.php$ index.php [QSA,L]
+    RewriteRule ^static.php$ static.php [QSA,L]
+    RewriteRule ^(.*)$ index.php?_page=errorPage&action=e403&file=$1 [QSA,L]
+    #RewriteRule ^([a-z,A-Z,-\/_]*).(php|mustache)$ index.php?_page=errorPage&action=e403&file=$1.$2 [QSA,L]
+
+    #ErrorDocument 403 /up/index.php?_page=_errorPage&_action=e403
+    #ErrorDocument 404 /up/index.php?_page=_errorPage&_action=e404
+    #ErrorDocument 500 /up/index.php?_page=_errorPage&_action=e500
+</IfModule>
