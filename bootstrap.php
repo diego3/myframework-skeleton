@@ -7,6 +7,11 @@ mb_http_output('UTF-8');
 setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 
+$env = 'global';
+if($_SERVER['APPLICATION_ENV'] == 'development') {
+    $env = 'local';
+}
+
 // Configurações do sistema
 define("PATH_LOCAL", dirname(__FILE__));
 set_include_path(ini_get("include_path") . PATH_SEPARATOR  . PATH_LOCAL . PATH_SEPARATOR);
@@ -18,7 +23,7 @@ define("UPSALT", 'S&@c%(*mA');  //Não mexer vai quebrar o login
 
 require_once PATH_MYFRAME . '/mycore.php';
 
-$appconfig = parse_ini_file('conf/application.local.ini', true);
+$appconfig = parse_ini_file("conf/application.{$env}.ini", true);
 
 //Constants
 define('DEVELOPMENT', 'DEVELOPMENT');
@@ -27,11 +32,6 @@ define("SERVER_MODE", $appconfig['geral']['mode']);
 define("DOMAIN", $appconfig['geral']['url']);
 define("DOMAIN_EMAIL", $appconfig['geral']['domain']);
 define("PAGE_TITLE_PREFIX", $appconfig['geral']['prefix']);
-
-$env = 'local';
-if(SERVER_MODE == PRODUCTION) {
-    $env = 'global';
-}
 
 $databaseconfig = parse_ini_file("app/conf/database.{$env}.ini", true);
 
