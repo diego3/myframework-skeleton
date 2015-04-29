@@ -1,5 +1,9 @@
 <?php
 
+require_once "vendor/autoload.php";
+
+use MyFrameWork\MemoryPage;
+
 /* 
  * Arquivo de bootstrap do sistema
  */
@@ -16,7 +20,7 @@ if($_SERVER['APPLICATION_ENV'] == 'development') {
 define("PATH_LOCAL", dirname(__FILE__));
 set_include_path(ini_get("include_path") . PATH_SEPARATOR  . PATH_LOCAL . PATH_SEPARATOR);
 define("PATH_APP", PATH_LOCAL . '/app');
-define("PATH_MYFRAME", PATH_LOCAL . '/vendor/myframework');
+define("PATH_MYFRAME", PATH_LOCAL . '/vendor/diego3/myframework-core');
 define("PATH_DEFAULT", PATH_LOCAL . '/app_default');
 define("PATH_TEMP", PATH_LOCAL . '/tmp');
 define("UPSALT", 'S&@c%(*mA');  //Não mexer vai quebrar o login
