@@ -1,6 +1,17 @@
 <?php
 
+namespace Application\Dao;
+
+use MyFrameWork\Factory;
+use MyFrameWork\DataBase\DAO;
+
+/**
+ * Geralmente os sistemas utilizam algum esquema de permissão ou autorização.
+ * Essa classe visa representar a tabela de usuarios em um banco de dados relacional.
+ * 
+ */
 class UsuarioDAO extends DAO {
+    
     protected function setParams() {
         $this->tablename = 'usuario';
     }
@@ -43,9 +54,10 @@ class UsuarioDAO extends DAO {
     }
     
     /**
+     * 
      * @return UsuarioGrupoDAO
      */
-    public function UsuarioGrupo() {
+    public function getUsuarioGrupoDAO() {
         return Factory::DAO('usuarioGrupo', $this->getDatabase());
     }
 }

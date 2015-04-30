@@ -1,4 +1,8 @@
 <?php
+namespace Application\Page;
+
+use MyFrameWork\Request\ProcessRequest;
+use MyFrameWork\Factory;
 
 class Painel extends ProcessRequest {
     public function __construct() {
@@ -11,6 +15,11 @@ class Painel extends ProcessRequest {
     
     public function isInstalled() {
         return file_exists('default/install/installed.php');
+    }
+    
+    public function _testaconexao() {
+        
+        
     }
     
     public function _main() {

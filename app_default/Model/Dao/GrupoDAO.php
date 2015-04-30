@@ -1,6 +1,11 @@
 <?php
+namespace Application\Dao;
+
+use MyFrameWork\Factory;
+use MyFrameWork\DataBase\DAO;
 
 class GrupoDAO extends DAO {
+    
     protected function setParams() {
         $this->tablename = 'grupo';
     }

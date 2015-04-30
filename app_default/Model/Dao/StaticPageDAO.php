@@ -1,6 +1,11 @@
 <?php
 
+namespace Application\Dao;
+
+use MyFrameWork\DataBase\DAO;
+
 class StaticPageDAO extends DAO {
+    
     protected function setParams() {
         $this->tablename = 'staticpage';
         $this->hasactive = false;

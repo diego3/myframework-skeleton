@@ -1,5 +1,10 @@
 <?php
 
+namespace Application\Dao;
+
+use MyFrameWork\Factory;
+use MyFrameWork\DataBase\DAO;
+
 class LogBuscaDAO extends DAO {
     
     protected function setParams() {

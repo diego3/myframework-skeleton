@@ -1,4 +1,9 @@
 <?php
+use MyFrameWork\Factory;
+
+createDefaultGroups();
+createDefaultUser();
+
 function createDefaultGroups() {
     echo '<li>CreateDefaultGroups</li>';
     
@@ -8,7 +13,7 @@ function createDefaultGroups() {
     if (empty($grupo)) {
         assert($dao->novo('admin', 'Possui controle completo do sistema'));
     }
-} createDefaultGroups();
+} 
 
 function createDefaultUser() {
     echo '<li>CreateDefaultUser</li>';
@@ -22,4 +27,4 @@ function createDefaultUser() {
         /* @var $dao UsuarioGrupoDAO */
         assert($dao->novo($email, 'admin'));
     }
-} createDefaultUser();
+} 

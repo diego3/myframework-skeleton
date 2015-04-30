@@ -1,5 +1,10 @@
 <?php
-require_once 'util/Crud.php';
+namespace Application\Page;
+
+use MyFrameWork\Request\ProcessRequest;
+use MyFrameWork\Factory;
+use MyFrameWork\Crud;
+use MyFrameWork\Session;
 
 class StaticPage extends ProcessRequest {
     /**

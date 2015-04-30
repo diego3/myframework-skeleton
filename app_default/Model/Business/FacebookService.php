@@ -1,5 +1,7 @@
 <?php
 
+namespace Application\Model\Business;
+
 require_once FACEBOOK_SDK_V4_SRC_DIR . 'autoload.php';
 
 use Facebook\FacebookSession;
@@ -28,12 +30,12 @@ class FacebookService {
      *
      * @var string 
      */
-    protected $appId = '1510316385897144';
+    protected $appId = '';//TODO load by ini file
     /**
      *
      * @var string 
      */
-    protected $appSecret = 'e03a3c372cd2dce9e46f1d34bd3551bd';
+    protected $appSecret = '';//TODO load by ini file
     /**
      *
      * @var string 
