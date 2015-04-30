@@ -2,7 +2,7 @@
 
 use MyFrameWork\Memory\MemoryPage;
 use MyFrameWork\Memory\Memory;
-
+use MyFrameWork\LoggerApp;
 
 /* 
  * Arquivo de bootstrap do sistema
@@ -61,7 +61,7 @@ foreach ($appconfig['memory'] as $k => $v) {
 }
 
 //Error lib - http://logging.apache.org/log4php/quickstart.html
-require_once PATH_MYFRAME . '/src/LoggerApp.php';
+//require_once PATH_MYFRAME . '/src/LoggerApp.php';
 Logger::configure(PATH_DEFAULT . '/conf/php4log.xml');
 
 // pra rodar o instalador precisa comentar essas 3 linhas

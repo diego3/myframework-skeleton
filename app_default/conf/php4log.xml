@@ -9,7 +9,7 @@
         </layout>
         -->
     </appender>
-    <appender name="userAppender" class="LoggerApp" />
+    <appender name="userAppender" class="MyFrameWork\LoggerApp" />
     <appender name="debugAppender" class="LoggerAppenderEcho">
         <layout class="LoggerLayoutSimple" />
         <param name="htmlLineBreaks" value="true" />
