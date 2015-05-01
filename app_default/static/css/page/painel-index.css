@@ -1,0 +1,15 @@
+
+html, body {
+    background: url(image/boxed-bg.png);
+}
+
+.form-horizontal {
+    margin-top: 50px;
+}
+
+.form-container {
+    background-color: #ffffff;
+    border: solid 2px #dddddd;
+    border-radius: 5px;
+    
+}

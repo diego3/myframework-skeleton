@@ -25,7 +25,7 @@ define("PATH_DEFAULT", PATH_LOCAL . '/app_default');
 define("PATH_TEMP", PATH_LOCAL . '/tmp');
 define("UPSALT", 'S&@c%(*mA');  //Não mexer vai quebrar o login
 
-require_once PATH_MYFRAME . '/mycore.php';
+require_once PATH_MYFRAME . '/src/mycore.php';
 
 $appconfig = parse_ini_file("conf/application.{$env}.ini", true);
 

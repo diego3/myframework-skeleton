@@ -3,10 +3,12 @@ namespace Application\Page;
 
 use MyFrameWork\Request\ProcessRequest;
 use MyFrameWork\Factory;
+use MyFrameWork\Memory\MemoryPage;
 
 class Painel extends ProcessRequest {
+    
     public function __construct() {
-        $this->filename = 'painel';
+        \MyFrameWork\Memory\MemoryPage::addCss("css/page/painel-index.css");
         $this->pageTitle = 'Painel administrativo';
         if ($_GET['_action'] == 'install') {
             define('TEST_OR_INSTALL', true);
@@ -17,12 +19,50 @@ class Painel extends ProcessRequest {
         return file_exists('default/install/installed.php');
     }
     
+    /**
+     * testar a conexao com o banco antes de realizar a instalação
+     */
     public function _testaconexao() {
+        \MyFrameWork\Memory\MemoryPage::addCss("css/page/painel-index.css");
+        //MemoryPage::add('debug', true);
+        $porta = $_POST["driver"] == "pgsql" ? '5432' : '3306';
+        $params = array(
+            "driver" => $_POST["driver"],
+            "dbname" => $_POST["banco"],
+            "port" => $porta,
+            "host" => $_POST["host"],
+            "user" => $_POST["usuario"],
+            "password" => $_POST["senha"]
+        );
+        $conectado = false;
         
+        $db = Factory::database($params);
+        /*@var $db \MyFrameWork\DataBase\PgDataBase */
+        if(is_object($db)) {
+            $conectado = true;
+            $status = $db->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
+        }else {
+            //dump(\MyFrameWork\LoggerApp::getErrors());
+            //dump(\MyFrameWork\LoggerApp::getLastError());
+            $status = \MyFrameWork\LoggerApp::getLastError();
+            $conectado = false;
+        }
+       
+        $this->pagedata["conectado"] = $conectado;
+        $this->pagedata["status_conexao"] = mb_convert_encoding($status, "utf-8");
+        $this->filename = "painel_index";
+        return true;
+    }
+    
+    /**
+     * tentar criar o banco de dado e mostrar caso o banco já exista
+     */
+    public function _createdatabase() {
         
     }
     
-    public function _main() {
+    public function _index() {
+        \MyFrameWork\Memory\MemoryPage::addCss("css/page/painel-index.css");
         return true;
     } 
     

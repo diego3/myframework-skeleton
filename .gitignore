@@ -2,3 +2,4 @@ nbproject/
 tmp/
 vendor/
 *.local.ini
+composer.lock
