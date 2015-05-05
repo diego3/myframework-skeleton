@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Dao;
+namespace Application\Model\Dao;
 
 use MyFrameWork\DataBase\DAO;
 

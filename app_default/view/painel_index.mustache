@@ -1,5 +1,18 @@
 {{>htmlheader}}
  
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <h1>Bem vindo ao painel de instalação</h1>
+                <p>Nesse painel você pode configurar e testar o banco de dados bem como rodar o instalador
+                da aplicação</p>
+                <p><a class="btn btn-success btn-lg" href="painel/install" role="button">INSTALAR</a></p>
+            </div>
+        </div>
+    </div>
+    
+</div>
 
 <div class="container">
     <div class="row">
@@ -43,7 +56,7 @@
                 
                 <div class="form-group">
                     <div class="col-md-10 pull-right">
-                        <button type="submit" class="btn btn-success">testa conexão</button>
+                        <button type="submit" class="btn btn-success">testar conexão</button>
                     </div>
                 </div>
                 
@@ -61,14 +74,46 @@
             </form>
             
         </div>
-        <div class="col-md-6">
-           
+        <div class="form-container col-md-6">
+           <form action="/painel/createdatabase" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="database" class="col-md-2">BANCO</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="database" name="database" value="" placeholder="o nome do novo banco de dados!">
+                        <span class="label lebal-danger">{{database_error}}</span>
+                    </div>
+                </div>
+               <div class="form-group">
+                    <div class="col-md-5 pull-right">
+                        <button type="submit" name="deletar" class="btn btn-danger">Deletar Banco</button>
+                    </div>
+                    <div class="col-md-3 pull-right">
+                        <button type="submit" name="criar" class="btn btn-success">Criar Banco</button>
+                    </div>
+                </div>
+           </form>
         </div>
     </div>
+    <div class="row">
+        <div class="form-container col-md-6">
+            <form action="/painel/install" method="post" id="form-install" class="form-horizontal">
+                <div class="form-group">
+                <div class="col-md-12">
+                    <bloquote>
+                    Instalar todas as tabelas e com os dados default!
+                    lembre se que a aplição será instalada no banco configurado
+                    no arquivo <strong>application.{local/global}.ini</strong>.
+                    </bloquote>
+                </div>
+                </div>
+            <div class="form-group">
+                <div class="col-md-10 pull-right">
+                    <button type="submit" name="install" class="btn btn-success">Instalar</button>
+                </div>
+            </div>
+               
+            </form>
+    </div>
 </div>
-
-
-
-
 
 {{>htmlfooter}}

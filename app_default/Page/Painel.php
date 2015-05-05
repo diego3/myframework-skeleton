@@ -4,6 +4,7 @@ namespace Application\Page;
 use MyFrameWork\Request\ProcessRequest;
 use MyFrameWork\Factory;
 use MyFrameWork\Memory\MemoryPage;
+use MyFrameWork\Enum\Flag;
 
 class Painel extends ProcessRequest {
     
@@ -42,8 +43,6 @@ class Painel extends ProcessRequest {
             $conectado = true;
             $status = $db->getAttribute(\PDO::ATTR_CONNECTION_STATUS);
         }else {
-            //dump(\MyFrameWork\LoggerApp::getErrors());
-            //dump(\MyFrameWork\LoggerApp::getLastError());
             $status = \MyFrameWork\LoggerApp::getLastError();
             $conectado = false;
         }
@@ -58,7 +57,29 @@ class Painel extends ProcessRequest {
      * tentar criar o banco de dado e mostrar caso o banco já exista
      */
     public function _createdatabase() {
+        $this->addParameter("database", "string", array(Flag::REQUIRED));
+        $this->cleanParameters();
         
+        $sql = sprintf("CREATE DATABASE %s
+        WITH OWNER = postgres
+             ENCODING = 'UTF8'
+             TABLESPACE = pg_default
+             LC_COLLATE = 'Portuguese_Brazil.1252'
+             LC_CTYPE = 'Portuguese_Brazil.1252'
+             CONNECTION LIMIT = -1", $this->getParameter("database"));
+        
+        $db = Factory::database(array(
+            "driver" => 'pgsql',
+            "dbname" => 'test',
+            "port" => '5432',
+            "host" => 'localhost',
+            "user" => 'root',
+            "password" => '123456'
+        ));
+        /*@var $db \MyFrameWork\DataBase\PgDataBase */
+       $ret = $db->execute($sql);
+       dump($ret);
+       $this->_index();
     }
     
     public function _index() {
@@ -72,9 +93,9 @@ class Painel extends ProcessRequest {
             return false;
         }
         echo "<h2>CREATE default TABLES </h2>";
-        $this->createDatabaseItems('default/install/');
+        $this->createDatabaseItems('app_default/install/');
         echo "<h2>EXECUTE SCRIPTS</h2>";
-        $this->executeScripts('default/install/');
+        $this->executeScripts('app_default/install/');
         
         echo "<h2>CREATE app TABLES </h2>";
         $this->createDatabaseItems('app/install/');

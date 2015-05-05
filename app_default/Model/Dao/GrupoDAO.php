@@ -1,5 +1,5 @@
 <?php
-namespace Application\Dao;
+namespace Application\Model\Dao;
 
 use MyFrameWork\Factory;
 use MyFrameWork\DataBase\DAO;
