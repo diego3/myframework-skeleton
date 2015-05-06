@@ -1,0 +1,49 @@
+label.required {
+    color: #a60000;
+    text-decoration: underline;
+}
+
+.imgfile {
+    max-height: 70px;
+}
+
+.modal-content { padding:10px !important;}
+
+.lista-imagem .file-preview-frame {
+    cursor: pointer; 
+    min-width: 150px;
+    max-width: 300px;
+    height: 140px;
+}
+
+.file-preview-frame figure {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.file-preview-image {
+    max-width: 300px;
+    height: auto !important;
+    max-height: 100px !important;
+}
+
+.modal-body {
+    min-height: 350px;
+    max-height: 550px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.browsetable .iconeprod {
+    max-width: 100px;
+    max-height: 50px;
+}
+
+.file-preview-image figure:hover  {
+     
+}
+.remove-icon:hover {
+    cursor: pointer;
+    color: red;
+    
+}

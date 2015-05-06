@@ -107,12 +107,18 @@ Fileupload = {
         //Remove image if exists in filechoose
         var container = $('.lista-imagem');
         if (container.length === 0) {            
-            $('#maincontent').append('<div class="file-preview-thumbnails lista-imagem" data-path="'+$('code[data-path]').data('path')+'"></div>')
+            $('#maincontent').append('<div class="file-preview-thumbnails lista-imagem" data-path="'+$('code[data-path]').data('path')+'"></div>');
             var container = $('.lista-imagem');
         }
         container.append('<div class="file-preview-frame"><figure data-name="' + imgname + '">' +
             '<img src="' + container.data('path') + '/' +imgname + '" class="file-preview-image">' +
-            '<figcaption>' + imgname + '</figcaption></figure></div>'
+            '<figcaption>' + imgname + '</figcaption></figure>' +
+            '<!-- remove icon on image hover -->' +
+            '<div class="remove-icon" data-action="">' +
+                '<a href="filemanager/deleteone?file=' + imgname + '" data-toggle="tooltip" data-placement="bottom" title="remover esse arquivo">' +
+                    '<span class="glyphicon glyphicon-trash"></span>' +
+                '</a>' +
+            '</div></div>'
         );
         if (Fileupload.isPopupMode()) {
             container.find('figure[data-name="' + imgname +  '"]').click(function (){
@@ -123,7 +129,7 @@ Fileupload = {
     
     selectImage: function (image) {        
         if (Fileupload.openElement) {
-            console.log(Fileupload.openElement);
+            //console.log(Fileupload.openElement);
             var imgid = '#' + Fileupload.openElement.data('imgid');
             var hidden = '#' + Fileupload.openElement.data('hiddenid');
             $(imgid).attr('src', image);
