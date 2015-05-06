@@ -10,10 +10,7 @@ class Painel extends ProcessRequest {
     
     public function __construct() {
         \MyFrameWork\Memory\MemoryPage::addCss("css/page/painel-index.css");
-        $this->pageTitle = 'Painel administrativo';
-        if ($_GET['_action'] == 'install') {
-            define('TEST_OR_INSTALL', true);
-        }
+        $this->pageTitle = 'Painel do programador';
     }
     
     public function isInstalled() {

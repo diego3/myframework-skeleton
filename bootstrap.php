@@ -23,7 +23,6 @@ define("PATH_APP", PATH_LOCAL . '/app');
 define("PATH_MYFRAME", PATH_LOCAL . '/vendor/diego3/myframework-core');
 define("PATH_DEFAULT", PATH_LOCAL . '/app_default');
 define("PATH_TEMP", PATH_LOCAL . '/tmp');
-define("UPSALT", 'S&@c%(*mA');  //Não mexer vai quebrar o login
 
 require_once PATH_MYFRAME . '/src/mycore.php';
 

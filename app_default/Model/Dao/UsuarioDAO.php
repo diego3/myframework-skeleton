@@ -4,6 +4,7 @@ namespace Application\Model\Dao;
 
 use MyFrameWork\Factory;
 use MyFrameWork\DataBase\DAO;
+use Application\Model\Business\CredentialsGenerator;//@todo 
 
 /**
  * Geralmente os sistemas utilizam algum esquema de permissão ou autorização.
@@ -14,20 +15,30 @@ class UsuarioDAO extends DAO {
     
     protected function setParams() {
         $this->tablename = 'usuario';
+        $this->hasactive = true;
+    }
+    
+    /**
+     * Retorna uma senha criptografada com a camada imediata encodada com base64
+     * @param string $password
+     * @return string 
+     */
+    protected function encrypt($password) {
+        return CredentialsGenerator::encriptyPassword($password);
     }
     
     /**
      * Cria um novo grupo
      * @param string $nome Nome
      * @param string $email E-mail do usuário
-     * @param string $password senha
+     * @param string $password Deve ser uma senha sem criptografia ou hash
      * @return int
      */
     public function novo($nome, $email, $password) {
         $user = $this->getByEmail($email);
         if (empty($user)) {
             if (strlen($password) != 32) {
-                $password = hashit($password);
+                $password = $this->encrypt($password);
             }
             return $this->insert(array('nome' => $nome, 'email' => $email, 'password' => $password));
         }
@@ -37,12 +48,12 @@ class UsuarioDAO extends DAO {
     
     /**
      * 
-     * @param string $newPassword
-     * @param int $userId
+     * @param string $newPassword Deve ser uma senha sem criptografia ou hash
+     * @param int $userId 
      * @return int 1 to success and 0 to failure
      */
     public function updatePassword($newPassword, $userId) {
-        return $this->update(array("password"  => hashit($newPassword)), $userId);
+        return $this->update(array("password"  => $this->encrypt($newPassword)), $userId);
     }
     
     /**
