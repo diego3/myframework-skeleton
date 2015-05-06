@@ -1,0 +1,10 @@
+html, body {
+    background: url(image/background.png);
+}
+.access-denied .permissao-negada {
+    margin-top: 80px;
+}
+
+.access-denied .permissao-negada a{
+    margin-top: 80px;
+}

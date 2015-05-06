@@ -1,0 +1,12 @@
+
+<!-- usado no fim de um formulário para exibição de error ou sucess após o submit 
+dar um jeito de integrar com o sistema de crud
+-->
+{{#submited_form}}
+    {{#success}}
+        <div class="alert alert-success" role="alert">{{form_success_message}}</div>
+    {{/success}}
+    {{^success}}
+        <div class="alert alert-danger" role="alert">{{form_failure_message}}</div>
+    {{/success}}
+{{/submited_form}}
