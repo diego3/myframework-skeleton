@@ -19,15 +19,24 @@ else {
 $fp = fopen($name, 'rb');
 
 //http://www.sitepoint.com/web-foundations/mime-types-complete-list/
-$ext = strtolower(substr($name, -3));
+
+$ext = strtolower(substr($name, strrpos($name, ".")+1));
+
 $mimeTypes = array(
-    'css' => 'text/css',
+    'css'  => 'text/css',
+    #fonts
+    'woff' => 'text/css',
+    'ttf' => 'text/css',
+    'eot' => 'text/css',
+    #images
     'gif' => 'image/gif',
     'jpg' => 'image/jpeg',
-    '.js' => 'text/javascript',
-    'pdf' => 'application/pdf',
-    'png' => 'image/png'
+    'png' => 'image/png',
+    #others
+    'js' => 'text/javascript',
+    'pdf' => 'application/pdf'
 );
+
 if (isset($mimeTypes[$ext])) {
     $contentType = $mimeTypes[$ext];
 }
