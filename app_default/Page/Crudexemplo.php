@@ -19,7 +19,15 @@ use MyFrameWork\Enum\Flag;
  * @author Diego
  */
 class Crudexemplo extends ProcessRequest {
+    /**
+     *
+     * @var \MyFrameWork\Crud 
+     */
+    protected $crud;
     
+    public function __construct() {
+        $this->crud = new Crud("usuario");
+    }
     
     public function _index() {
         $this->addParameter("email", "string", array(Flag::REQUIRED));
@@ -29,10 +37,8 @@ class Crudexemplo extends ProcessRequest {
         $this->cleanParameters();//or $this->isValidParameters()
         
         
-        $crud = new Crud("usuario", "usuario");/*@var $crud Crud*/
         //dump($this->parametersValue); exit;
-        $this->pagedata["form"] = $crud->edit("", $this->parametersMeta[$this->getMethod()], $this->parametersValue);
-        
+        $this->pagedata["form"] = $this->crud->edit($this->id, $this->parametersMeta[$this->getMethod()], $this->parametersValue);
         
         return true;
     }
