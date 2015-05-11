@@ -4,7 +4,7 @@ namespace Application\Page;
 
 use MyFrameWork\Request\ProcessRequest;
 use MyFrameWork\Factory;
-use MyFrameWork\Crud;
+use MyFrameWork\Crud\Crud;
 use MyFrameWork\Enum\Flag;
 
 /**

@@ -7,7 +7,12 @@
     {{#formgroup}}
     <div class="form-group">
         {{#formitem}}
-        <label for="{{id}}" class="control-label col-md-{{#sl}}{{.}}{{/sl}}{{^sl}}2{{/sl}}{{#required}} required{{/required}}">{{{label}}}</label>
+        {{^ischeckbox}}
+            <label for="{{id}}" class="control-label col-md-{{#sl}}{{.}}{{/sl}}{{^sl}}2{{/sl}}{{#required}} required{{/required}}">{{{label}}}</label>
+        {{/ischeckbox}}
+        {{#ischeckbox}}
+            <div class="col-md-{{#sl}}{{.}}{{/sl}}{{^sl}}2{{/sl}}"></div>
+        {{/ischeckbox}}
         <div class="col-md-{{#sc}}{{.}}{{/sc}}{{^sc}}10{{/sc}}">
             {{{item}}} {{#error}}<span class="label label-danger">{{.}}</span>{{/error}}
         </div>
