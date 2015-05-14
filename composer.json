@@ -28,7 +28,8 @@
 		"doctrine/dbal": "2.5.1"
     },
     "require-dev" : {
-        "diego3/myframework-core": "dev-master"
+        "diego3/myframework-core": "dev-master",
+        "phpunit/phpunit" : "4.6.*"
     },
     "autoload": {
         "psr-4": {
