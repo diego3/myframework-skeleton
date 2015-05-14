@@ -43,12 +43,11 @@ abstract class CrudPage extends ProcessRequestObserver {
      */
     protected $urlbase;
     
-    public function abstracoesEspecificasDeCadaPage() {
-        //dao name : usar no crud, e sera a url base depois do host na rota 
-        //actions da tabela
-        
-    }
-    
+    /**
+     *
+     * @var \MyFrameWork\DataBase\DataBase 
+     */
+    protected $connection;
     
     /**
      * 
@@ -57,13 +56,15 @@ abstract class CrudPage extends ProcessRequestObserver {
     
     /**
      * Deve retornar um array com chave => valor onde a chave é o nome da coluna
-     * e o valor é o nome da coluna da tabela do banco de dados
+     * do grid e o valor é o nome da coluna da tabela do banco de dados
      * @return array 
      */
     public abstract function getTableSchema();
 
     public function __construct(EventManager $em) {
         $this->crud = new Crud($this->daoname);
+        $this->connection = $this->crud->getDao()->getDatabase();
+        
         if(null !== $this->urlbase) {
             $this->crud->setUrlbase($this->urlbase);
         }
@@ -73,6 +74,12 @@ abstract class CrudPage extends ProcessRequestObserver {
         parent::__construct($em);
     }
     
+    /**
+     * Permite alterar as urls de edição e exclusão das actions da tabela bem
+     * como alterar o método de busca do DAO para listar os dados.
+     * Também é possível alterar o arquivo de template
+     * As alterações são possíveis por meio do método Crud::setConfig
+     */
     public function preEdit(){}
     
     public function _edit() {
@@ -88,17 +95,23 @@ abstract class CrudPage extends ProcessRequestObserver {
         return true;
     }
     
+    /**
+     * Permite alterar o método de inserção ou alteração do DAO por meio das 
+     * constantes de configuração do Crud
+     */
+    public function preSave() {}
+    
     public function _save() {
+        $this->preSave();
+        
         $this->submit();
         
         $this->posSubmit();
         
-        //redirect("{$this->crud->getUrlbase()}edit/{$this->id}");
-        
         return $this->_edit();
     }
     
-    protected function default_save () {
+    protected function old_save () {
         $this->setParameters();
         $this->cleanParameters();
         
@@ -117,8 +130,8 @@ abstract class CrudPage extends ProcessRequestObserver {
         $this->setParameters();
         
         if( $this->isValidParameters()) {
-            $submit_status = $this->crud->salvar($this->id, $this->parametersValue);
-            //dump($submit_status);    
+            $submit_status = $this->crud->save($this->id, $this->parametersValue);
+                
             $status = $submit_status == 1;
             $this->session->setData("submit_status", $status);
             if(!$status) {
