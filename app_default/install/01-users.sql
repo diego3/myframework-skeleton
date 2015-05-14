@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS usuario (
     id SERIAL PRIMARY KEY,
     email VARCHAR NOT NULL UNIQUE CHECK (length(email) > 5),
-    password VARCHAR(32) NOT NULL CHECK (length(password) = 32),
+    password VARCHAR(60) NOT NULL CHECK (length(password) = 60),
     nome VARCHAR NOT NULL CHECK (length(nome) > 1),
     ativo BOOL DEFAULT true,
     registro TIMESTAMP DEFAULT now()
