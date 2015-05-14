@@ -4,7 +4,7 @@ namespace Application\Model\Dao;
 
 use MyFrameWork\Factory;
 use MyFrameWork\DataBase\DAO;
-use Application\Model\Business\CredentialsGenerator;//@todo 
+use MyFrameWork\Common\Cryptographer; 
 
 /**
  * Geralmente os sistemas utilizam algum esquema de permissão ou autorização.
@@ -24,20 +24,21 @@ class UsuarioDAO extends DAO {
      * @return string 
      */
     protected function encrypt($password) {
-        return CredentialsGenerator::encriptyPassword($password);
+        return Cryptographer::encriptyPassword($password);
     }
     
     /**
-     * Cria um novo grupo
-     * @param string $nome Nome
-     * @param string $email E-mail do usuário
+     * Cria um novo usuário
+     * 
+     * @param string $email    E-mail do usuário
      * @param string $password Deve ser uma senha sem criptografia ou hash
+     * @param string $nome     Nome
      * @return int
      */
-    public function novo($nome, $email, $password) {
+    public function novo($email, $password, $nome) {
         $user = $this->getByEmail($email);
         if (empty($user)) {
-            if (strlen($password) != 32) {
+            if (strlen($password) != 60) {
                 $password = $this->encrypt($password);
             }
             return $this->insert(array('nome' => $nome, 'email' => $email, 'password' => $password));
@@ -49,8 +50,8 @@ class UsuarioDAO extends DAO {
     /**
      * 
      * @param string $newPassword Deve ser uma senha sem criptografia ou hash
-     * @param int $userId 
-     * @return int 1 to success and 0 to failure
+     * @param int $userId         O id do usuário
+     * @return int                1 to success and 0 to failure
      */
     public function updatePassword($newPassword, $userId) {
         return $this->update(array("password"  => $this->encrypt($newPassword)), $userId);
@@ -58,6 +59,7 @@ class UsuarioDAO extends DAO {
     
     /**
      * Retorna os dados do usuário pelo seu e-mail
+     * 
      * @param string $email E-mail do usuário
      */
     public function getByEmail($email) {
@@ -66,9 +68,9 @@ class UsuarioDAO extends DAO {
     
     /**
      * 
-     * @return UsuarioGrupoDAO
+     * @return \Application\Model\Dao\UsuariogrupoDAO
      */
-    public function getUsuarioGrupoDAO() {
+    public function getUsuariogrupoDAO() {
         return Factory::DAO('usuarioGrupo', $this->getDatabase());
     }
 }

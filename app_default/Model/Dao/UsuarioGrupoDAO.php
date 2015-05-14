@@ -10,13 +10,17 @@ class UsuarioGrupoDAO extends DAO {
     protected function setParams() {
         $this->tablename = 'usuariogrupo';
         $this->hasactive = false;
+        //tem duas pks : usuario, grupo 
+        //duas fks : grupo references grupo.id, usuario REFERENCES usuario.id
+        
     }
     
     /**
      * Define um ou mais grupos para o usuário
-     * @param string|int $usuario Email ou id do usuário
-     * @param mixed $grupos Vetor de ids ou emails ou apenas um id ou email
-     * @return int Número de grupos inseridos
+     * 
+     * @param string|int $usuario  Email ou id do usuário
+     * @param mixed      $grupos   Vetor de ids ou emails ou apenas um id ou email
+     * @return int                 Número de grupos inseridos
      */
     public function novo($usuario, $grupos) {
         $usuario = $this->getUsuarioId($usuario);
@@ -41,8 +45,9 @@ class UsuarioGrupoDAO extends DAO {
     
     /**
      * Exclui todos os grupos de um usuário
+     * 
      * @param string|int $usuario Email ou id do usuário
-     * @return int Número de linhas excluídas
+     * @return int                Número de linhas excluídas
      */
     public function deleteByUsuario($usuario) {
         return $this->db->delete($this->getTableName(), array('usuario' => $this->getUsuarioId($usuario)));
@@ -50,6 +55,7 @@ class UsuarioGrupoDAO extends DAO {
     
     /**
      * Retorna todos os grupos de um usuário
+     * 
      * @param string|int $usuario Id ou E-mail do usuário
      * @return array
      */
@@ -60,6 +66,7 @@ class UsuarioGrupoDAO extends DAO {
     
     /**
      * Retorna todos os usuários de um grupo
+     * 
      * @param string|int $grupo Id ou Nome do grupo
      * @return array
      */
@@ -70,8 +77,9 @@ class UsuarioGrupoDAO extends DAO {
     
     /**
      * Sempre retorna o Id do usuário
+     * 
      * @param string|int $usuario Email ou id do usuário
-     * @return int Id do usuário, se o mesmo não for encontrado retorna -1
+     * @return int                Id do usuário, se o mesmo não for encontrado retorna -1
      */
     protected function getUsuarioId($usuario) {
         return $this->loadDAO('usuario')->getTableId('email', $usuario);
@@ -79,8 +87,9 @@ class UsuarioGrupoDAO extends DAO {
     
     /**
      * Sempre retorna o Id do grupo
+     * 
      * @param string|int $grupo Nome ou id do grupo
-     * @return int Id do grupo, se o mesmo não for encontrado retorna -1
+     * @return int              Id do grupo, se o mesmo não for encontrado retorna -1
      */
     protected function getGrupoId($grupo) {
         return $this->loadDAO('grupo')->getTableId('nome', $grupo);
